@@ -1,11 +1,12 @@
+#!/usr/bin/env python3
 """
 Module that has many functions that deals with personal data.
 """
 
 
-import logging
 import re
 from typing import List
+import logging
 
 
 def filter_datum(fields: List[str], redaction: str,
@@ -24,7 +25,6 @@ class RedactingFormatter(logging.Formatter):
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
-
 
     def __init__(self, fields: List[str]) -> None:
         """ Init function """
