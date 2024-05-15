@@ -6,13 +6,14 @@ Module that has many functions that deals with personal data.
 
 import logging
 import re
+from typing import List
 
 
-def filter_datum(fields, redaction, message, separator):
+def filter_datum(fields: List[str], redaction: str,
+                 message: str, separator: str) -> str:
     """ Obfuscate fields from a log string """
     for field in fields:
-        regex = field + "=(.*?)" + separator
-        match = re.search(regex, message)
+        match = re.search(field + "=(.*?)" + separator, message)
         message = re.sub(match.group(1), redaction, message)
     return message
 
@@ -31,7 +32,7 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         record.msg = filter_datum(self.fields,
-                               RedactingFormatter.REDACTION,
-                               record.msg,
-                               RedactingFormatter.SEPARATOR)
+                                  RedactingFormatter.REDACTION,
+                                  record.msg,
+                                  RedactingFormatter.SEPARATOR)
         return super().format(record)
