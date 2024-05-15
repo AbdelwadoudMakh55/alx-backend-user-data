@@ -9,6 +9,9 @@ import re
 from typing import List
 
 
+PII_FIELDS = ("name", "email", "phone", "password", "ip")
+
+
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
     """Obfuscate fields from a log string """
@@ -47,6 +50,3 @@ def get_logger() -> logging.Logger:
     user_data.setLevel(logging.INFO)
     user_data.addHandler(stream_handler)
     return user_data
-
-
-PII_FIELDS = ("name", "email", "phone", "password", "ip")
