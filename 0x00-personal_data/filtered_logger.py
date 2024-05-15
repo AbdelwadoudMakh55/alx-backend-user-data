@@ -13,9 +13,9 @@ def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
     """ Obfuscate fields from a log string """
     for field in fields:
-        match = re.search(f'{field}=(.*?){separator}', message)
+        match = re.search(rf'{field}=(.*?){separator}', message)
         if match:
-            message = re.sub(match.group(1), redaction, message, count=1)
+            message = re.sub(match.group(1), redaction, message, 1)
     return message
 
 
