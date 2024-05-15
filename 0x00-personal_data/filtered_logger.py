@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Module that has many functions that deals with personal data."""
+"""
+Module that has many functions that deals with personal data.
+"""
 
 
 import logging
@@ -24,8 +26,8 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: List[str]) -> None:
-        """ Initialize the object """
+    def __init__(self, fields: List[str]):
+        """ Init function """
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
