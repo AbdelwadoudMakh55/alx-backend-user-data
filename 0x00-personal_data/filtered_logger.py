@@ -2,8 +2,6 @@
 """
 Module that has many functions that deals with personal data.
 """
-
-
 import re
 from typing import List
 import logging
