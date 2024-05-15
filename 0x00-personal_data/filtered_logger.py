@@ -4,9 +4,9 @@ Module that has many functions that deals with personal data.
 """
 
 
+import logging
 import re
 from typing import List
-import logging
 
 
 class RedactingFormatter(logging.Formatter):
@@ -19,7 +19,7 @@ class RedactingFormatter(logging.Formatter):
 
     def __init__(self, fields: List[str]) -> None:
         """ Init function """
-        super(RedactingFormatter, self).__init__(self.FORMAT)
+        super().__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
