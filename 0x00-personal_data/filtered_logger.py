@@ -5,13 +5,13 @@ from typing import List
 import logging
 
 
-def filter_datum(
-    fields: List[str], redaction: str, message: str, separator: str
-) -> str:
-    """doc doc doc"""
+def filter_datum(fields: List[str], redaction: str,
+                 message: str, separator: str) -> str:
+    """Obfuscate fields from a log string """
     for field in fields:
-        regex = f"{field}=[^{separator}]*"
-        message = re.sub(regex, f"{field}={redaction}", message)
+        match = re.search(rf'{field}=(.*?){separator}', message)
+        if match:
+            message = re.sub(match.group(1), redaction, message, 1)
     return message
 
 
