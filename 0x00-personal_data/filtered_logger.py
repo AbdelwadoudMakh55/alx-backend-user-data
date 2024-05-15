@@ -2,14 +2,14 @@
 """
 Module that has many functions that deals with personal data.
 """
+import logging
 import re
 from typing import List
-import logging
 
 
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
-    """ Obfuscate fields from a log string """
+    """Obfuscate fields from a log string """
     for field in fields:
         match = re.search(rf'{field}=(.*?){separator}', message)
         if match:
@@ -18,7 +18,7 @@ def filter_datum(fields: List[str], redaction: str,
 
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class """
+    """Redacting Formatter class """
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
