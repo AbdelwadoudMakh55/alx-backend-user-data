@@ -43,9 +43,8 @@ PII_FIELDS = ("name", "email", "phone", "password", "ip")
 
 def get_logger() -> logging.Logger:
     """ Function that creates a logger """
-    formatter = RedactingFormatter([])
     stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(formatter)
+    stream_handler.setFormatter(RedactingFormatter)
     user_data = logging.getLogger("user_data", propagate=False)
     user_data.setLevel(logging.INFO)
     user_data.addHandler(stream_handler)
