@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Module that has many functions that deals with personal data."""
+
+
 import logging
 import re
 from typing import List
