@@ -45,7 +45,8 @@ def get_logger() -> logging.Logger:
     """ Function that creates a logger """
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(RedactingFormatter)
-    user_data = logging.getLogger("user_data", propagate=False)
+    user_data = logging.getLogger("user_data")
     user_data.setLevel(logging.INFO)
+    user_data.propagate = False
     user_data.addHandler(stream_handler)
     return user_data
