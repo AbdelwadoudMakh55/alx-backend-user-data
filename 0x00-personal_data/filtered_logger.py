@@ -3,8 +3,6 @@
 import re
 from typing import List
 import logging
-import os
-import mysql.connector
 
 
 def filter_datum(
