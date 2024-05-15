@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-""" doc doc doc """
+"""Module that has many functions that deals with personal data."""
+import logging
 import re
 from typing import List
-import logging
 
 
 def filter_datum(fields: List[str], redaction: str,
