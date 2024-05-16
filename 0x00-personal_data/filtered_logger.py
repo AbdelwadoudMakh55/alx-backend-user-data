@@ -19,9 +19,9 @@ def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
     """Obfuscate fields from a log string """
     for field in fields:
-        match = re.search(rf'{field}=(.*?){separator}', message)
+        match = re.search(f'{field}=(.*?){separator}', message)
         if match:
-            message = re.sub(match.group(1), redaction, message, 1)
+            message = re.sub(re.escape(match.group(1)), redaction, message, 1)
     return message
 
 
@@ -47,7 +47,7 @@ class RedactingFormatter(logging.Formatter):
 def get_logger() -> logging.Logger:
     """ Function that creates a logger """
     stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
+    stream_handler.setFormatter(RedactingFormatter(fields=PII_FIELDS))
     user_data = logging.getLogger('user_data')
     user_data.propagate = False
     user_data.setLevel(logging.INFO)
@@ -80,14 +80,19 @@ def main():
     logger = get_logger()
     cursor = db_connection.cursor()
     cursor.execute("SELECT * FROM users;")
+    column_names = [column[0] for column in cursor.description]
     for row in cursor:
         pii = []
+        i = 0
         for data in row:
             if isinstance(data, datetime):
-                pii.append(data.strftime("%m-%d-%Y %H:%M:%S"))
+                info = f'{column_names[i]}={data.strftime("%m-%d-%Y %H:%M:%S")}'
             else:
-                pii.append(data)
-        message = "; ".join(pii)
+                info = f'{column_names[i]}={data}'
+            pii.append(info)
+            i += 1
+        message = ";".join(pii)
+        message += ";"
         logger.info(message)
 
 
