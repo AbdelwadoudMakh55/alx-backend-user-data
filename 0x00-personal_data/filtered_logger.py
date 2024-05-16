@@ -88,7 +88,7 @@ def main():
             else:
                 pii.append(data)
         message = "; ".join(pii)
-        print(message)
+        logger.info(message)
 
 
 if __name__ == '__main__':
