@@ -87,7 +87,7 @@ def main():
                 pii.append(data.strftime("%m-%d-%Y %H:%M:%S"))
             else:
                 pii.append(data)
-        message = ";".join(pii)
+        message = "; ".join(pii)
         print(message)
 
 
