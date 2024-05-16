@@ -70,6 +70,6 @@ def get_db() -> connection.MySQLConnection:
         host=host,
         user=user,
         password=pwd,
-        db=database
+        database=database
     )
     return db_connection
