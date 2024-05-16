@@ -20,8 +20,7 @@ def filter_datum(fields: List[str], redaction: str,
     """Obfuscate fields from a log string """
     for field in fields:
         match = re.search(f'{field}=(.*?){separator}', message)
-        if match:
-            message = re.sub(re.escape(match.group(1)), redaction, message, 1)
+        message = re.sub(re.escape(match.group(1)), redaction, message)
     return message
 
 
@@ -80,15 +79,15 @@ def main():
     logger = get_logger()
     cursor = db_connection.cursor()
     cursor.execute("SELECT * FROM users;")
-    column_names = [column[0] for column in cursor.description]
+    columns = [column[0] for column in cursor.description]
     for row in cursor:
         pii = []
         i = 0
         for data in row:
             if isinstance(data, datetime):
-                info = f'{column_names[i]}={data.strftime("%m-%d-%Y %H:%M:%S")}'
+                info = f'{columns[i]}={data.strftime("%m-%d-%Y %H:%M:%S")}'
             else:
-                info = f'{column_names[i]}={data}'
+                info = f'{columns[i]}={data}'
             pii.append(info)
             i += 1
         message = ";".join(pii)
