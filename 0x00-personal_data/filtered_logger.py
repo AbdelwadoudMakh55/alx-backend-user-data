@@ -80,7 +80,13 @@ def main():
     cursor = db_connection.cursor()
     cursor.execute("SELECT * FROM users;")
     for row in cursor:
-        message = ";".join(row)
+        pii = []
+        for data in row:
+            if isinstance(data, datetime.datetime):
+                pii.append(data.strftime("%m-%d-%Y %H:%M:%S"))
+            else:
+                pii.append(data)
+        message = ";".join(pii)
         print(message)
 
 
