@@ -87,6 +87,8 @@ def main():
         message = ";".join(pii)
         message += ";"
         logger.info(message)
+    cursor.close()
+    db_connection.close()
 
 
 if __name__ == '__main__':
