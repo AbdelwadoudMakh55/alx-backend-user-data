@@ -5,7 +5,7 @@ Module that has many functions that deals with personal data.
 
 
 import logging
-import mysql.connector
+from mysql.connector import connection
 import os
 import re
 from typing import List
@@ -66,7 +66,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     if pwd is None:
         pwd = ""
     database = os.getenv("PERSONAL_DATA_DB_NAME")
-    db_connection = mysql.connector.connect(
+    db_connection = connection.MySQLConnection(
         host=host,
         user=user,
         password=pwd,

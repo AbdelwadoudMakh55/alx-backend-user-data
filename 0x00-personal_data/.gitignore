@@ -1,3 +1,5 @@
 __pycache__/*
 main.py
 user_data.csv
+main.sql
+.venv/*
