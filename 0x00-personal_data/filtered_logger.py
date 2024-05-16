@@ -83,7 +83,7 @@ def main():
     for row in cursor:
         pii = []
         for data in row:
-            if isinstance(data, datetime.datetime):
+            if isinstance(data, datetime):
                 pii.append(data.strftime("%m-%d-%Y %H:%M:%S"))
             else:
                 pii.append(data)
