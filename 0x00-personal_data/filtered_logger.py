@@ -77,7 +77,7 @@ def main():
     """ Main function """
     db_connection = get_db()
     logger = get_logger()
-    cursor = db.cursor()
+    cursor = db_connection.cursor()
     cursor.execute("SELECT * FROM users;")
     for row in cursor:
         print(row)
