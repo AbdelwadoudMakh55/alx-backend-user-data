@@ -5,6 +5,8 @@ Module that has many functions that deals with personal data.
 
 
 import logging
+import mysql.connector
+import os
 import re
 from typing import List
 
@@ -50,3 +52,24 @@ def get_logger() -> logging.Logger:
     user_data.setLevel(logging.INFO)
     user_data.addHandler(stream_handler)
     return user_data
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """ Function that creates a connector for the database """
+    host = os.getenv("PERSONAL_DATA_DB_HOST")
+    if host is None:
+        host = "localhost"
+    user = os.getenv("PERSONAL_DATA_DB_USERNAME")
+    if user is None:
+        user = "root"
+    pwd = os.getenv("PERSONAL_DATA_DB_PASSWORD")
+    if pwd is None:
+        pwd = ""
+    database = os.getenv("PERSONAL_DATA_DB_NAME")
+    db_connection = mysql.connector.connect(
+        host=host,
+        user=user,
+        password=pwd,
+        db=database
+    )
+    return db_connection
