@@ -80,7 +80,8 @@ def main():
     cursor = db_connection.cursor()
     cursor.execute("SELECT * FROM users;")
     for row in cursor:
-        print(row)
+        message = ";".join(row)
+        print(message)
 
 
 if __name__ == '__main__':
