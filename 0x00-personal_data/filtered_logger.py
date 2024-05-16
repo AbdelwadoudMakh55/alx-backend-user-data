@@ -4,6 +4,7 @@ Module that has many functions that deals with personal data.
 """
 
 
+from datetime import datetime
 import logging
 from mysql.connector import connection
 import os
