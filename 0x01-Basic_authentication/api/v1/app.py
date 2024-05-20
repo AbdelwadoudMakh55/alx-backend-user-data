@@ -24,12 +24,13 @@ def filter_requests() -> str:
             '/api/v1/unauthorized/',
             '/api/v1/forbidden/'
         ]
-        check_path = auth.require_path(request.path, excluded_paths)
+        check_path = auth.require_auth(request.path, excluded_paths)
         if check_path:
             if auth.authorization_header(request) is None:
                 abort(401)
-            if auth.current_user(request) is None:
+            elif auth.current_user(request) is None:
                 abort(403)
+
 
 @app.errorhandler(404)
 def not_found(error) -> str:
@@ -45,7 +46,7 @@ def unauthorized(error) -> str:
 
 
 @app.errorhandler(403)
-def unauthorized(error) -> str:
+def forbidden(error) -> str:
     """ Forbidden handler """
     return jsonify({"error": "Forbidden"}), 403
 

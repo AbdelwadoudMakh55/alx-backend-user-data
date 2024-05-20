@@ -5,9 +5,9 @@
 from flask import request
 from typing import List, TypeVar
 
-class Auth:
-    """ Class that manages authenticatio """
 
+class Auth:
+    """ Class that manages authentication """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ return false for now"""
@@ -25,9 +25,9 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         """ returns None for now"""
-        if request is None or "Authorization" not in request.args.keys():
+        if request is None or request.headers.get("Authorization") is None:
             return None
-        return request.args.get("Authorization")
+        return request.headers.get("Authorization")
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ returns None for now"""
