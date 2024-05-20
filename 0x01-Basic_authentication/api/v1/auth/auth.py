@@ -25,7 +25,9 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         """ returns None for now"""
-        return None
+        if request is None or "Authorization" not in request.args.keys():
+            return None
+        return request.args.get("Authorization")
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ returns None for now"""
