@@ -12,7 +12,6 @@ import os
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
-auth = None
 
 
 @app.before_request
@@ -53,6 +52,7 @@ def forbidden(error) -> str:
 
 
 if __name__ == "__main__":
+    auth = None
     host = getenv("API_HOST", "0.0.0.0")
     port = getenv("API_PORT", "5000")
     auth_type = getenv("AUTH_TYPE")
