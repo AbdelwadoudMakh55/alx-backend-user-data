@@ -34,7 +34,10 @@ def login():
     response.set_cookie(cookie_session_id, session_id)
     return response
 
-@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+
+@app_views.route('/auth_session/logout',
+                 methods=['DELETE'],
+                 strict_slashes=False)
 def delete_session():
     """ Route for deleting session """
     from api.v1.app import auth
