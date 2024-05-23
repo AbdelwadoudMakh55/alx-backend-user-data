@@ -39,7 +39,7 @@ class SessionExpAuth(SessionAuth):
             return None
         if user_id_by_session_id.get(session_id) is None:
             return None
-        if session_duration <= 0:
+        if duration <= 0:
             return user_id_by_session_id.get(session_id).get("user_id")
         if user_id_by_session_id.get(session_id).get("created_at") is None:
             return None
