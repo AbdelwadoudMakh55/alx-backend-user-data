@@ -53,8 +53,16 @@ class DB:
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """Update a user"""
+        user_attr = [
+            "id", "email",
+            "hashed_password",
+            "session_id",
+            "reset_token"
+        ]
         user = self.find_user_by(id=user_id)
         if user:
             for attr, value in kwargs.items():
+                if attr not in user_attr:
+                    raise (ValueError)
                 setattr(user, attr, value)
             self._session.commit()
