@@ -43,9 +43,9 @@ class DB:
         """Find a user """
         session = self._session
         try:
-            user = session.query(User).filter_by(**kwargs).one()
-        except (InvalidRequestError, NoResultFound) as e:
-            raise e
-        except MultipleResultsFound as e:
             user = session.query(User).filter_by(**kwargs).first()
+            if not user:
+                raise NoResultFound
+        except InvalidRequestError as e:
+            raise e
         return user
