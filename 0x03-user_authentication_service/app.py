@@ -2,7 +2,7 @@
 """
 The application module
 """
-from flask import abort, Flask, jsonify, request
+from flask import abort, Flask, jsonify, request, redirect
 from auth import Auth
 
 
@@ -38,6 +38,17 @@ def login():
     response = jsonify({"email": email, "message": "logged in"})
     response.set_cookie("session_id", session_id)
     return response
+
+
+@app.route("/sessions", methods=["DELETE"])
+def logout():
+    """Logout"""
+    session_id = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(session_id)
+    if not user:
+        abort(403)
+    AUTH.destroy_session(user.id)
+    return redirect("/")
 
 
 if __name__ == "__main__":
